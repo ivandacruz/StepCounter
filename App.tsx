@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   values: {
     flexDirection: 'row',
     gap: 25,
-    // rowGap: 20,
     flexWrap: 'wrap',
+    marginTop: 100,
   },
 });

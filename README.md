@@ -44,12 +44,12 @@ $ npm start
 
 <br>
 
-# ficamos aqui em : 
+# Ficamos aqui em : 
 
 ~~~~
 
-20:01min de 3:57:52hs
+38:14min de 3:57:52hs
 
 ~~~~
 
-[Link do video](https://www.youtube.com/watch?v=VVoXcr18mdo)
+> [Link do video](https://www.youtube.com/watch?v=VVoXcr18mdo)
