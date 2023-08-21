@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React, { useEffect } from "react";
-import Svg, { Circle } from "react-native-svg";
+import Svg, { Circle, CircleProps } from "react-native-svg";
 import Animated, { useAnimatedProps, useSharedValue, withTiming } from "react-native-reanimated";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -12,8 +12,6 @@ type RingProgressProps = {
 };
 
 const color = "#00E5BC";
-// const color = "#01679C";
-// const color = "#EE0F55";
 
 const RingProgress = ({
     radius = 100,
@@ -31,7 +29,19 @@ const RingProgress = ({
 
     const animatedProps = useAnimatedProps(() => ({
         strokeDasharray: [circumference * fill.value, circumference],
-    }))
+    }));
+
+    const circleDefaultProps: CircleProps = {
+        r: innerRadius,
+        cx: radius,
+        cy: radius,
+        originX: radius,
+        originY: radius,
+        strokeWidth: strokeWidth,
+        stroke: color,
+        strokeLinecap: 'round',
+        rotation:"-90",
+    };
 
     return (
         <View
@@ -39,33 +49,14 @@ const RingProgress = ({
                 width: radius * 2,
                 height: radius * 2,
                 alignSelf: "center",
-                // backgroundColor:'orange',
             }}
         >
             <Svg>
-                {/* Background */}
                 <Circle
-                    cx={radius}
-                    cy={radius}
-                    r={innerRadius}
-                    // fill={'green'} 
-                    strokeWidth={strokeWidth}
-                    stroke={color}
-                    opacity={0.2}
-                />
-                {/* Foreground */}
+                    {...circleDefaultProps}   opacity={0.2} />
                 <AnimatedCircle
                     animatedProps={animatedProps}
-                    r={innerRadius}
-                    cx={radius}
-                    cy={radius}
-                    originX={radius}
-                    originY={radius}
-                    // fill={'green'} 
-                    strokeWidth={strokeWidth}
-                    stroke={color}
-                    strokeLinecap="round"
-                    rotation="-90"
+                    {...circleDefaultProps}                    
                 />
             </Svg>
         </View>
