@@ -1,10 +1,13 @@
 import { View } from "react-native";
-import React from "react";
-import Svg, { Circle, Rect } from "react-native-svg";
+import React, { useEffect } from "react";
+import Svg, { Circle } from "react-native-svg";
+import Animated, { useAnimatedProps, useSharedValue, withTiming } from "react-native-reanimated";
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 type RingProgressProps = {
     radius?: number;
-    strokeWidth ?: number;
+    strokeWidth?: number;
     progress: number;
 };
 
@@ -12,13 +15,23 @@ const color = "#00E5BC";
 // const color = "#01679C";
 // const color = "#EE0F55";
 
-const RingProgress = ({ 
-    radius = 100, 
+const RingProgress = ({
+    radius = 100,
     strokeWidth = 30,
     progress,
 }: RingProgressProps) => {
     const innerRadius = radius - strokeWidth / 2;
     const circumference = 2 * Math.PI * innerRadius;
+
+    const fill = useSharedValue(0);
+
+    useEffect(() => {
+        fill.value = withTiming(progress, { duration: 1800 });
+    }, [progress]);
+
+    const animatedProps = useAnimatedProps(() => ({
+        strokeDasharray: [circumference * fill.value, circumference],
+    }))
 
     return (
         <View
@@ -31,26 +44,26 @@ const RingProgress = ({
         >
             <Svg>
                 {/* Background */}
-                <Circle 
-                    cx={radius} 
-                    cy={radius} 
-                    r={innerRadius} 
+                <Circle
+                    cx={radius}
+                    cy={radius}
+                    r={innerRadius}
                     // fill={'green'} 
-                    strokeWidth={strokeWidth} 
-                    stroke={color} 
+                    strokeWidth={strokeWidth}
+                    stroke={color}
                     opacity={0.2}
                 />
                 {/* Foreground */}
-                <Circle 
-                    r={innerRadius} 
-                    cx={radius} 
-                    cy={radius} 
+                <AnimatedCircle
+                    animatedProps={animatedProps}
+                    r={innerRadius}
+                    cx={radius}
+                    cy={radius}
                     originX={radius}
                     originY={radius}
                     // fill={'green'} 
-                    strokeWidth={strokeWidth} 
-                    stroke={color} 
-                    strokeDasharray={[circumference * progress, circumference]}
+                    strokeWidth={strokeWidth}
+                    stroke={color}
                     strokeLinecap="round"
                     rotation="-90"
                 />

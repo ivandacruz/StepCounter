@@ -29,13 +29,35 @@ Este app foi criado com intuito de fixar aprendizados e habilidades.
 
 - Rodar o projeto
 
+~~~bash
+
+npm start
+
 ~~~
 
-$ npm start
 
-~~~
+# 
+
+## Install Reanimated
+
+[Reanimated](https://docs.expo.dev/versions/latest/sdk/reanimated/)
 
 
+```bash
+
+npx expo install react-native-reanimated
+
+```
+stop apliccation and
+run project with:
+
+```bash
+
+npm start -- --clear
+
+```
+
+#
 
 [![][black-shield]][black]
 
